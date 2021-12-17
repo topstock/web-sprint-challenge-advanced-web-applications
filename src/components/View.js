@@ -14,7 +14,9 @@ const View = (props) => {
     useEffect(() => {
         axiosWithAuth()
           .get('http://localhost:5000/api/articles')
-          .then( resp => setArticles(resp.data));
+          .then( resp => {
+              console.log(resp.data);
+              setArticles(resp.data)});
     }, [])
 
     const handleDelete = (id) => {
