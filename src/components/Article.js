@@ -9,7 +9,7 @@ const Article = (props)=> {
         <ArticleStyle>
             <Container>
                 <p>{moment(article.createdOn).format("ddd, MMM Do YYYY")}</p>
-                <img src={`https://picsum.photos/id/${article.image}/300/300`}/>
+                { article.image && <img src={`https://picsum.photos/id/${article.image}/300/300`}/> }
             </Container>
             <Container>
                 <h1 data-testid="headline">{article.headline}</h1>

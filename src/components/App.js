@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import { Route } from "react-router-dom";
 import styled from 'styled-components';
 
@@ -10,8 +10,6 @@ import Logout from './Logout';
 import PrivateRoute from './PrivateRoute';
 
 const App = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(localStorage.getItem("token") !==null);
-  console.log('localStorage.getItem(token)', isLoggedIn);
   
   return (
     <AppContainer>
