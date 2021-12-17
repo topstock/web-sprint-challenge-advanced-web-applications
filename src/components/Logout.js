@@ -1,21 +1,28 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { Redirect } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 const Logout = () => {
+  const {push} = useHistory();
+  
   useEffect(()=>{
+    localStorage.removeItem('token');
     console.log(localStorage.getItem('token'));
-      axios.post('http://localhost:5000/api/logout')
+      axios.post('http://localhost:5000/api/logout', {
+          authorization: localStorage.getItem('token')
+      })
         .then(res => localStorage.removeItem('token'))
         .catch(err => console.error(err));
+      push('/');
   },[]);
   
-  if (localStorage.getItem('token')) {
-    return( <div> Logging out... </div>);
-  } else {
-    return(<Redirect to="/login" />);
-  }
+
+ 
+  return( 
+    <div> Logging out... </div>
+  );
 }
+
 
 export default Logout;
 

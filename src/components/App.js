@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { Route } from "react-router-dom";
 import styled from 'styled-components';
 
@@ -7,8 +7,12 @@ import BloomHeader from './BloomHeader';
 import Login from './Login';
 import View from './View';
 import Logout from './Logout';
+import PrivateRoute from './PrivateRoute';
 
 const App = () => {
+  const [isLoggedIn, setIsLoggedIn] = useState(localStorage.getItem("token") !==null);
+  console.log('localStorage.getItem(token)', isLoggedIn);
+  
   return (
     <AppContainer>
       <BloomHeader/>
@@ -20,12 +24,8 @@ const App = () => {
         <Route exact path="/login">
           <Login/>
         </Route>        
-        <Route exact path="/view">
-          <View/>
-        </Route>        
-        <Route exact path="/logout">
-          <Logout/>
-        </Route>           
+        <PrivateRoute path="/view" component={View} />
+        <PrivateRoute path="/logout" component={Logout} />
       </RouteContainer>
     </AppContainer>
   )

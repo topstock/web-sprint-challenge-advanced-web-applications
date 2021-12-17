@@ -53,8 +53,7 @@ const PError = styled.p`
 const Login = () => {
     const [ credentials, setCredentials ] = useState({ username:'', password:'' });
     const [ error, setError ] = useState('');
-    const [ isLoggedIn, setIsLoggedIn ] = useState( localStorage.getItem('token') === true );
-
+    const [ isLoggedIn, setIsLoggedIn ] = useState( false );
 
     const handleChange = (e) => {
         setCredentials({
@@ -72,6 +71,7 @@ const Login = () => {
         axios.post('http://localhost:5000/api/login' , credentials)
         .then(res => {
             localStorage.setItem('token', res.data.token);
+            setIsLoggedIn(true);
         })
         .catch(err => {
             console.log(err);
@@ -79,7 +79,7 @@ const Login = () => {
         });
     }
     
-    if (!localStorage.getItem('token')) { 
+    if (!isLoggedIn && !localStorage.getItem('token')) { 
       return(
         <ComponentContainer>
           <ModalContainer>
