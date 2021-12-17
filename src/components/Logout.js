@@ -1,7 +1,20 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import axios from 'axios';
+import { Redirect } from 'react-router-dom';
 
-const Logout = () => {        
-    return(<div></div>);
+const Logout = () => {
+  useEffect(()=>{
+    console.log(localStorage.getItem('token'));
+      axios.post('http://localhost:5000/api/logout')
+        .then(res => localStorage.removeItem('token'))
+        .catch(err => console.error(err));
+  },[]);
+  
+  if (localStorage.getItem('token')) {
+    return( <div> Logging out... </div>);
+  } else {
+    return(<Redirect to="/login" />);
+  }
 }
 
 export default Logout;
